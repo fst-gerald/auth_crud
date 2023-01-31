@@ -1,0 +1,7 @@
+{
+  "name": "auth_crud",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
