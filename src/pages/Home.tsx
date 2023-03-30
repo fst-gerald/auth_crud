@@ -20,7 +20,7 @@ const Home: React.FC = () => {
 
     await Preferences.remove({ key: 'token' });
     
-    history.replace("/login");
+    history.replace('/login');
   }
 
   useEffect(() => {
