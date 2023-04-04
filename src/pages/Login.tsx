@@ -8,10 +8,10 @@ import { Preferences } from '@capacitor/preferences';
 import { Auth } from '../Base/Auth';
 import { Axios } from '../Base/Axios';
 import { Device } from '@capacitor/device';
+import { AxiosError } from 'axios';
 
-function validateEmail(email: string) {
-    const re = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
-    return re.test(String(email).toLowerCase());
+type ErrorResponse = {
+  message: string
 }
 
 const Login: React.FC = () => {
@@ -24,26 +24,6 @@ const Login: React.FC = () => {
   const history = useHistory();
 
   const handleLogin = async () => {
-    if (! email) {
-        setMessage("Please enter a valid email");
-        setIserror(true);
-
-        return;
-    }
-    if (validateEmail(email) === false) {
-        setMessage("Your email is invalid");
-        setIserror(true);
-
-        return;
-    }
-
-    if (! password || password.length < 6) {
-        setMessage("Please enter your password");
-        setIserror(true);
-
-        return;
-    }
-
     const loginData = {
         "email": email,
         "password": password,
@@ -59,8 +39,11 @@ const Login: React.FC = () => {
       });
       
       history.push("/home");
-    } catch (err) {
-      setMessage("Auth failure! Please create an account");
+    } catch (error) {
+      const err      = error as AxiosError;
+      const response = err.response?.data as ErrorResponse;
+
+      setMessage(response.message);
       setIserror(true)
     }
   };
@@ -136,9 +119,6 @@ const Login: React.FC = () => {
           </IonRow>
           <IonRow>
             <IonCol>
-              <p style={{ fontSize: "small" }}>
-                  By clicking LOGIN you agree to our <a href="#">Policy</a>
-              </p>
               <IonButton expand="block" onClick={handleLogin}>Login</IonButton>
               <p style={{ fontSize: "medium" }}>
                   Don't have an account? <a href="#">Sign up!</a>

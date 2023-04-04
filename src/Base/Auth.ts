@@ -31,7 +31,7 @@ export module Auth {
       return user.data;
     } catch (error) {
       const err = error as AxiosError;
-      console.log(err.response);
+      console.error(err.response?.data);
       
       return {};
     }
