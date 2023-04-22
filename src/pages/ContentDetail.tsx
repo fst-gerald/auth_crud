@@ -1,8 +1,10 @@
 import {
+  IonButton,
   IonCol,
   IonContent,
   IonGrid,
   IonHeader,
+  IonIcon,
   IonItem,
   IonPage,
   IonRow,
@@ -15,15 +17,16 @@ import { useEffect, useState } from "react";
 import { Auth } from "../base/Auth";
 import { useHistory, useParams } from 'react-router';
 import { ContentManager } from "../managers/ContentManager";
+import { pencil} from "ionicons/icons";
 
 type ContentParams = {
     contentId: string;
   };
 
 const ContentDetail: React.FC = () => {
-    const history = useHistory();
-    const { contentId } = useParams<ContentParams>();
-    const [content, setContent] = useState<Content>();
+  const history = useHistory();
+  const { contentId } = useParams<ContentParams>();
+  const [content, setContent] = useState<Content>();
 
   useEffect(() => {
     (async () => {
@@ -34,9 +37,9 @@ const ContentDetail: React.FC = () => {
         setContent(selectedContent);
       }
     })();
-  
+
     return () => {};
-  }, []);
+  }, [history, contentId]);
 
     return (
         <IonPage>
@@ -56,6 +59,14 @@ const ContentDetail: React.FC = () => {
                             <IonText><b>Details:</b> {content?.details}</IonText>
                         </IonItem>
                     </IonCol>
+                </IonRow>
+                <IonRow>
+                <IonCol>
+                    <IonButton expand="block" onClick={() => history.push(`/contents/edit/${content?.id}`)}>
+                      <IonIcon icon={pencil}></IonIcon>
+                        Go to Editing
+                    </IonButton>
+                </IonCol>
                 </IonRow>
             </IonGrid>
         </IonContent>

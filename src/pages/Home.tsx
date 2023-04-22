@@ -1,5 +1,4 @@
 import {
-  IonButton,
   IonContent,
   IonFab,
   IonFabButton,
@@ -22,11 +21,6 @@ const Home: React.FC = () => {
   const history = useHistory();
   const [contents, setContents] = useState<Content[]>([]);
 
-  const handleLogout = async () => {
-    Auth.logout();
-    history.replace('/login');
-  }
-
   const handleDeleteContent = async (content: Content) => {
     await ContentManager.deleteContent(content);
 
@@ -45,14 +39,13 @@ const Home: React.FC = () => {
     })();
   
     return () => {};
-  }, []);
+  }, [history]);
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Contents</IonTitle>
-          <IonButton slot="end" onClick={handleLogout}>Log Out</IonButton>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

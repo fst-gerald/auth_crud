@@ -1,6 +1,7 @@
 import { Preferences } from '@capacitor/preferences';
 import { AxiosError } from 'axios';
 import { Axios } from "./Axios";
+import { User } from '../models/User';
 
 type loginCredentials = {
   email: string;
@@ -37,7 +38,7 @@ export module Auth {
 
   export const getUser = async () => {
     try {
-      const user = await Axios.client.get('/api/user', {
+      const user = await Axios.client.get<User>('/api/user', {
         headers: {
           'Authorization': 'Bearer ' + await getCurrentToken()
         }

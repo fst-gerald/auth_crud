@@ -4,6 +4,7 @@ import {
     IonContent,
     IonGrid,
     IonHeader,
+    IonIcon,
     IonInput,
     IonItem,
     IonLabel,
@@ -18,6 +19,7 @@ import {
   import { useEffect, useState } from "react";
   import { Auth } from "../base/Auth";
   import { ContentManager } from "../managers/ContentManager";
+import { save } from "ionicons/icons";
 
   const ContentAdd: React.FC = () => {
       const history = useHistory();
@@ -37,7 +39,7 @@ import {
           })();
         
           return () => {};
-        }, []);
+        }, [history]);
       
       return (
           <IonPage>
@@ -81,8 +83,9 @@ import {
                       <IonRow>
                           <IonCol>
                               <IonButton 
-                                  expand="block"
-                                  onClick={handleCreateContent}>
+                                expand="block"
+                                onClick={handleCreateContent}>
+                                <IonIcon icon={save}></IonIcon>
                                   Save
                               </IonButton>
                           </IonCol>

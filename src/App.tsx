@@ -15,6 +15,7 @@ import Login from './pages/Login';
 import ContentDetail from './pages/ContentDetail';
 import ContentEdit from './pages/ContentEdit';
 import ContentAdd from './pages/ContentAdd';
+import Account from './pages/Account';
 import { home, person } from 'ionicons/icons';
 
 /* Core CSS required for Ionic components to work properly */
@@ -60,6 +61,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/contents/add">
             <ContentAdd/>
+          </Route>
+          <Route exact path="/account">
+            <Account/>
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
