@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonCol,
   IonContent,
   IonGrid,
@@ -26,6 +27,25 @@ const ContentEdit: React.FC = () => {
     const history = useHistory();
     const { contentId } = useParams<ContentParams>();
     const [content, setContent] = useState<Content>();
+
+    const handleUpdateContent = async () => {
+        await ContentManager.updateContent(content!);
+
+        history.push('/home');
+    }
+    
+    const handleOnChangeContent = (field: Content) => {
+        const currentContent = {...content};
+        
+        // set content's property based on provided field
+        Object.defineProperty(
+            currentContent,
+            Object.keys(field)[0],
+            { value: Object.values(field)[0] }
+        );
+
+        setContent(currentContent);
+    }
     
     useEffect(() => {
         (async () => {
@@ -56,6 +76,7 @@ const ContentEdit: React.FC = () => {
                                     <IonInput
                                         type="text"
                                         value={content?.title}
+                                        onIonChange={(e) => handleOnChangeContent({title: e.detail.value!})}
                                         >
                                     </IonInput>
                             </IonItem>
@@ -65,9 +86,20 @@ const ContentEdit: React.FC = () => {
                                     <IonTextarea
                                         autoGrow
                                         value={content?.details}
+                                        onIonChange={(e) => handleOnChangeContent({details: e.detail.value!})}
                                         >
                                     </IonTextarea>
                             </IonItem>
+                        </IonCol>
+                    </IonRow>
+                    &nbsp;
+                    <IonRow>
+                        <IonCol>
+                            <IonButton 
+                                expand="block"
+                                onClick={handleUpdateContent}>
+                                Save Changes
+                            </IonButton>
                         </IonCol>
                     </IonRow>
                 </IonGrid>
