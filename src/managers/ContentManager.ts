@@ -23,6 +23,16 @@ export module ContentManager {
     return selectedContent.data;
   }
 
+  export const createContent = async (content: Content) => {
+    const createdContent = await Axios.client.post('/api/contents', content, {
+      headers: {
+        'Authorization': 'Bearer ' + await Auth.getCurrentToken()
+      }
+    });
+
+    return createdContent.data;
+  }
+
   export const updateContent = async (content: Content) => {
     const updatedContent = await Axios.client.put(`/api/contents/${content.id}`, content, {
       headers: {

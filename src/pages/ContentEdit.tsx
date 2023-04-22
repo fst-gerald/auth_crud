@@ -34,19 +34,6 @@ const ContentEdit: React.FC = () => {
         history.push('/home');
     }
     
-    const handleOnChangeContent = (field: Content) => {
-        const currentContent = {...content};
-        
-        // set content's property based on provided field
-        Object.defineProperty(
-            currentContent,
-            Object.keys(field)[0],
-            { value: Object.values(field)[0] }
-        );
-
-        setContent(currentContent);
-    }
-    
     useEffect(() => {
         (async () => {
           if (! await Auth.isLoggedIn()) {
@@ -76,7 +63,11 @@ const ContentEdit: React.FC = () => {
                                     <IonInput
                                         type="text"
                                         value={content?.title}
-                                        onIonChange={(e) => handleOnChangeContent({title: e.detail.value!})}
+                                        onIonChange={(e) => {
+                                            const currentContent = {...content};
+                                            currentContent.title = e.detail.value!;
+                                            setContent(currentContent);
+                                          }}
                                         >
                                     </IonInput>
                             </IonItem>
@@ -86,7 +77,11 @@ const ContentEdit: React.FC = () => {
                                     <IonTextarea
                                         autoGrow
                                         value={content?.details}
-                                        onIonChange={(e) => handleOnChangeContent({details: e.detail.value!})}
+                                        onIonChange={(e) => {
+                                            const currentContent = {...content};
+                                            currentContent.details = e.detail.value!;
+                                            setContent(currentContent);
+                                          }}
                                         >
                                     </IonTextarea>
                             </IonItem>

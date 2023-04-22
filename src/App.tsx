@@ -1,10 +1,21 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import {
+  IonApp,
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+  setupIonicReact
+} from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import ContentDetail from './pages/ContentDetail';
 import ContentEdit from './pages/ContentEdit';
+import ContentAdd from './pages/ContentAdd';
+import { home, person } from 'ionicons/icons';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -30,24 +41,40 @@ setupIonicReact();
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-        <Route exact path="/contents/detail/:contentId">
-          <ContentDetail/>
-        </Route>
-        <Route exact path="/contents/edit/:contentId">
-          <ContentEdit/>
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
+      <IonTabs>
+        <IonRouterOutlet>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/home">
+            <Home />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/home" />
+          </Route>
+          <Route exact path="/contents/detail/:contentId">
+            <ContentDetail/>
+          </Route>
+          <Route exact path="/contents/edit/:contentId">
+            <ContentEdit/>
+          </Route>
+          <Route exact path="/contents/add">
+            <ContentAdd/>
+          </Route>
+        </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="home" href="/home">
+            <IonIcon icon={home} />
+            <IonLabel>Home</IonLabel>
+          </IonTabButton>
+
+          <IonTabButton tab="account" href="/account">
+            <IonIcon icon={person} />
+            <IonLabel>Account</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      </IonTabs>
+      </IonReactRouter>
   </IonApp>
 );
 

@@ -1,4 +1,14 @@
-import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import {
+  IonButton,
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonHeader,
+  IonIcon,
+  IonPage,
+  IonTitle,
+  IonToolbar
+} from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import './Home.css';
@@ -6,6 +16,7 @@ import { Auth } from '../base/Auth';
 import ContentList from '../components/Content/ContentList';
 import { Content } from '../models/Content';
 import { ContentManager } from '../managers/ContentManager';
+import { add } from 'ionicons/icons';
 
 const Home: React.FC = () => {
   const history = useHistory();
@@ -52,7 +63,13 @@ const Home: React.FC = () => {
         </IonHeader>
         <ContentList contents={contents} onDelete={handleDeleteContent}/>
       </IonContent>
+      <IonFab slot="fixed" vertical="bottom" horizontal="end">
+          <IonFabButton>
+            <IonIcon icon={add} onClick={() => history.push(`/contents/add`)}></IonIcon>
+          </IonFabButton>
+        </IonFab>
     </IonPage>
+    
   );
 };
 
