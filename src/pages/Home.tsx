@@ -1,36 +1,35 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import ExploreContainer from '../components/ExploreContainer';
-import { Preferences } from '@capacitor/preferences';
 import './Home.css';
-import { Auth } from '../Base/Auth';
-import { Axios } from '../Base/Axios';
+import { Auth } from '../base/Auth';
+import ContentList from '../components/Content/ContentList';
+import { Content } from '../models/Content';
+import { ContentManager } from '../managers/ContentManager';
 
 const Home: React.FC = () => {
-  const history         = useHistory();
-  const [user, setUser] = useState<object>({});
+  const history = useHistory();
+  const [contents, setContents] = useState<Content[]>([]);
 
   const handleLogout = async () => {
-    await Axios.client.post('/api/logout', {}, {
-      headers: {
-        'Authorization': 'Bearer ' + await Auth.getCurrentToken()
-      }
-    });
-
-    await Preferences.remove({ key: 'token' });
-    
+    Auth.logout();
     history.replace('/login');
+  }
+
+  const handleDeleteContent = async (content: Content) => {
+    await ContentManager.deleteContent(content);
+
+    setContents((currentContents) =>
+      currentContents.filter((c) => c.id !== content.id)
+    );
   }
 
   useEffect(() => {
     (async () => {
-      const currentUser = await Auth.getUser();
-
-      if (Object.keys(currentUser).length == 0) {
+      if (! await Auth.isLoggedIn()) {
         history.replace('/login'); 
       } else {
-        setUser(currentUser);
+        setContents(await ContentManager.getAllContents());
       }
     })();
   
@@ -41,17 +40,17 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Blank</IonTitle>
+          <IonTitle>Contents</IonTitle>
           <IonButton slot="end" onClick={handleLogout}>Log Out</IonButton>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
+            <IonTitle size="large">Contents</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer />
+        <ContentList contents={contents} onDelete={handleDeleteContent}/>
       </IonContent>
     </IonPage>
   );

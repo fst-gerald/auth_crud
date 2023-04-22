@@ -2,9 +2,24 @@ import { Preferences } from '@capacitor/preferences';
 import { AxiosError } from 'axios';
 import { Axios } from "./Axios";
 
+type loginCredentials = {
+  email: string;
+  password: string;
+  device_id: string;
+};
+
 export module Auth {
+  export const createToken = async (credentials: loginCredentials) => {
+    const createdToken = await Axios.client.post("/api/sanctum/token", credentials);
+
+    Preferences.set({
+      key: 'token',
+      value: createdToken.data,
+    });
+  }
+
   export const getCurrentToken = async () => {
-    const pref  = await Preferences.get({ key: 'token' });
+    const pref = await Preferences.get({ key: 'token' });
     const token = pref.value;
 
     return token;
@@ -35,5 +50,15 @@ export module Auth {
       
       return {};
     }
+  }
+
+  export const logout = async () => {
+    await Axios.client.post('/api/logout', {}, {
+      headers: {
+        'Authorization': 'Bearer ' + await Auth.getCurrentToken()
+      }
+    });
+
+    await Preferences.remove({ key: 'token' });
   }
 }
