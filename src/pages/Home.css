@@ -1,0 +1,16 @@
+.container {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.container-actions {
+    text-align: center;
+    font-size: medium;
+}
+
+.hr {
+    border-bottom: 1px solid #ccc;
+    margin: 10px 0;
+    width: 100%;
+  }

@@ -9,7 +9,8 @@ import {
   IonInput,
   IonButton,
   IonIcon,
-  IonAlert
+  IonAlert,
+  useIonViewDidEnter
 } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import { IonGrid, IonRow, IonCol } from '@ionic/react';
@@ -18,6 +19,7 @@ import { useHistory } from 'react-router-dom';
 import { Auth } from '../base/Auth';
 import { Device } from '@capacitor/device';
 import { AxiosError } from 'axios';
+import { Helper } from '../base/Helper';
 
 type ErrorResponse = {
   message: string
@@ -49,6 +51,10 @@ const Login: React.FC = () => {
       setIserror(true)
     }
   };
+  
+  useIonViewDidEnter(() => {
+    Helper.hideTabBar();
+  });
 
   useEffect(() => {
     (async () => {
@@ -61,7 +67,7 @@ const Login: React.FC = () => {
     })();
   
     return () => {};
-  }, []);
+  }, [history]);
 
   return (
     <IonPage>
@@ -121,9 +127,9 @@ const Login: React.FC = () => {
           <IonRow>
             <IonCol>
               <IonButton expand="block" onClick={handleLogin}>Login</IonButton>
-              <p style={{ fontSize: "medium" }}>
+              {/* <p style={{ fontSize: "medium" }}>
                   Don't have an account? <a href="#">Sign up!</a>
-              </p>
+              </p> */}
             </IonCol>
           </IonRow>
         </IonGrid>

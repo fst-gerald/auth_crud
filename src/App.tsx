@@ -39,47 +39,49 @@ import './theme/variables.css';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
-          <Route exact path="/contents/detail/:contentId">
-            <ContentDetail/>
-          </Route>
-          <Route exact path="/contents/edit/:contentId">
-            <ContentEdit/>
-          </Route>
-          <Route exact path="/contents/add">
-            <ContentAdd/>
-          </Route>
-          <Route exact path="/account">
-            <Account/>
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="home" href="/home">
-            <IonIcon icon={home} />
-            <IonLabel>Home</IonLabel>
-          </IonTabButton>
+const App: React.FC = () => {
+  return(
+    <IonApp>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+            <Route exact path="/contents/detail/:contentId">
+              <ContentDetail/>
+            </Route>
+            <Route exact path="/contents/edit/:contentId">
+              <ContentEdit/>
+            </Route>
+            <Route exact path="/contents/add">
+              <ContentAdd/>
+            </Route>
+            <Route exact path="/account">
+              <Account/>
+            </Route>
+          </IonRouterOutlet>
+          <IonTabBar slot="bottom" id="ion-tab-bar">
+            <IonTabButton tab="home" href="/home">
+              <IonIcon icon={home} />
+              <IonLabel>Home</IonLabel>
+            </IonTabButton>
 
-          <IonTabButton tab="account" href="/account">
-            <IonIcon icon={person} />
-            <IonLabel>Account</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-      </IonReactRouter>
-  </IonApp>
-);
+            <IonTabButton tab="account" href="/account">
+              <IonIcon icon={person} />
+              <IonLabel>Account</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+        </IonReactRouter>
+    </IonApp>
+  )
+};
 
 export default App;
