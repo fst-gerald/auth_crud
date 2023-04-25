@@ -37,7 +37,7 @@ import { User } from "../models/User";
       })();
     
       return () => {};
-    }, []);
+    }, [history]);
   
       return (
           <IonPage>

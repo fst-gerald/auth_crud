@@ -28,9 +28,13 @@ const Home: React.FC = () => {
 
   const handleRefresh = async (event: CustomEvent<RefresherEventDetail>) => {
     setTimeout(async () => {
-      setContents(await ContentManager.getAllContents());
+      loadContents();
       event.detail.complete();
     }, 1000);
+  }
+
+  const loadContents = async () => {
+    setContents(await ContentManager.getAllContents());
   }
 
   const handleDeleteContent = async (content: Content) => {
@@ -43,6 +47,7 @@ const Home: React.FC = () => {
 
   useIonViewDidEnter(() => {
     Helper.showTabBar();
+    loadContents();
   });
 
   useEffect(() => {
@@ -50,7 +55,7 @@ const Home: React.FC = () => {
       if (! await Auth.isLoggedIn()) {
         history.replace('/login'); 
       } else {
-        setContents(await ContentManager.getAllContents());
+       loadContents() 
       }
     })();
   
