@@ -27,7 +27,7 @@ const ContentListItem: React.FC<Props> = ({ content, onDelete}) => {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
   return (
-    <IonList className="container">
+    <IonList>
       <IonCard>
       <IonCardHeader>
         <IonCardTitle>{content.title}</IonCardTitle>

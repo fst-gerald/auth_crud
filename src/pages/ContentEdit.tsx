@@ -96,7 +96,7 @@ const ContentEdit: React.FC = () => {
                                 expand="block"
                                 onClick={handleUpdateContent}>
                                 <IonIcon icon={save}></IonIcon>
-                                Save Changes
+                                &nbsp;Save Changes
                             </IonButton>
                         </IonCol>
                     </IonRow>

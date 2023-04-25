@@ -86,7 +86,7 @@ import { save } from "ionicons/icons";
                                 expand="block"
                                 onClick={handleCreateContent}>
                                 <IonIcon icon={save}></IonIcon>
-                                  Save
+                                &nbsp;Save
                               </IonButton>
                           </IonCol>
                       </IonRow>

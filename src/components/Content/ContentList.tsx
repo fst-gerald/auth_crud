@@ -10,7 +10,7 @@ interface Props {
 
 const ContentList: React.FC<Props> = ({ contents, onDelete}) => {
   return (
-    <ul className="paddingLeftTodo">
+    <ul className="container">
         {contents.map(content => (
             <ContentListItem key={content.id} content={content} onDelete={onDelete}/>
         ))}
