@@ -26,8 +26,9 @@ const Home: React.FC = () => {
   const history = useHistory();
   const [contents, setContents] = useState<Content[]>([]);
 
-  const handleRefresh = async (event: CustomEvent<RefresherEventDetail>) => {
-    setTimeout(async () => {
+  const handleRefresh = (event: CustomEvent<RefresherEventDetail>) => {
+    // TODO: Load by page?
+    setTimeout(() => {
       loadContents();
       event.detail.complete();
     }, 1000);

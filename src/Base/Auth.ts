@@ -11,7 +11,7 @@ type loginCredentials = {
 
 export module Auth {
   export const createToken = async (credentials: loginCredentials) => {
-    const createdToken = await Axios.client.post("/api/sanctum/token", credentials);
+    const createdToken = await Axios.client.post("/api/auth/token", credentials);
 
     Preferences.set({
       key: 'token',
@@ -38,7 +38,7 @@ export module Auth {
 
   export const getUser = async () => {
     try {
-      const user = await Axios.client.get<User>('/api/user', {
+      const user = await Axios.client.get<User>('/api/users/user', {
         headers: {
           'Authorization': 'Bearer ' + await getCurrentToken()
         }
@@ -54,7 +54,7 @@ export module Auth {
   }
 
   export const logout = async () => {
-    await Axios.client.post('/api/logout', {}, {
+    await Axios.client.post('/api/auth/logout', {}, {
       headers: {
         'Authorization': 'Bearer ' + await Auth.getCurrentToken()
       }

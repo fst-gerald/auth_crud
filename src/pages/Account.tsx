@@ -66,7 +66,7 @@ import { User } from "../models/User";
                         <IonCol>
                             <IonButton expand="block" onClick={handleLogout}>
                                 <IonIcon icon={logOut}></IonIcon>
-                                Logout
+                                &nbsp;Logout
                             </IonButton>
                         </IonCol>
                     </IonRow>
