@@ -55,8 +55,6 @@ const Home: React.FC = () => {
     (async () => {
       if (! await Auth.isLoggedIn()) {
         history.replace('/login'); 
-      } else {
-       loadContents() 
       }
     })();
   

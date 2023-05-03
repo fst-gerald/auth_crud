@@ -31,7 +31,7 @@ const ContentListItem: React.FC<Props> = ({ content, onDelete}) => {
       <IonCard>
       <IonCardHeader>
         <IonCardTitle>{content.title}</IonCardTitle>
-        <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+        {/* <IonCardSubtitle>Card Subtitle</IonCardSubtitle> */}
       </IonCardHeader>
       <IonCardContent>
         {content.details}
